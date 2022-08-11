@@ -97,6 +97,11 @@ const validateSignUpRequest =async (req, res,next) =>{
     {
        return res.status(400).send({message:"So you are not allowed to create an admin userType"})
     }
+    else{
+        next();//going to next middleware
+    }
+
+    
 }
 
 
@@ -112,6 +117,11 @@ const validateSignInRequest = (req, res) =>{
    {
     return res.status(400).send({message:"Password is not provided"})
    }
+   else{
+    next();//going to next middleware
+   }
+
+  
 }
 
 module.exports ={
