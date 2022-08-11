@@ -108,7 +108,7 @@ const validateSignUpRequest =async (req, res,next) =>{
 
 
 
-const validateSignInRequest = (req, res) =>{
+const validateSignInRequest = (req, res,next) =>{
    if(!req.body.userId)
    {
     return res.status(400).send({message:"UserId is not provided"})
