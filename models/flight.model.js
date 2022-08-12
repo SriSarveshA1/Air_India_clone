@@ -11,7 +11,7 @@ const flightSchema =new mongoose.Schema({
         type:Number,
         req:true
     },
-    
+
     departureAirport:{
         type:String,
         required:true
@@ -38,6 +38,9 @@ const flightSchema =new mongoose.Schema({
     },
     arrivalTime:{
         type:TimeStamp
+    },
+    boardingGate:{
+        type:Number//so we need to mention the boardingGate number
     },
     createdAt :{
         type : Date,

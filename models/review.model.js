@@ -4,6 +4,7 @@ const reviewSchema=new mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user"
+        //so we are not making the required equal to true as the review can be given by anonymous user
     },
     comment:{
         type:String,
@@ -11,8 +12,9 @@ const reviewSchema=new mongoose.Schema({
         minLength:5//So the comment should be minLength of 5
     },
     flight:{
-        type:moongoose.Schema.Types.ObjectId,
-        ref:"flight"
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"flight",
+        required:true
     },
     createdAt :{
         type : Date,

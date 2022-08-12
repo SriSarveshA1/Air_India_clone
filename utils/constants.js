@@ -3,3 +3,8 @@ exports.userTypes={
     customer:"CUSTOMER",
     admin:"ADMIN"
 }
+exports.status={
+    inProcess:"In Process",
+    booked:"Booked",
+    cancelled:"Cancelled"
+}

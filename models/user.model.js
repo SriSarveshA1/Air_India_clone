@@ -39,7 +39,7 @@ const userSchema=new mongoose.Schema({//so this mongoose.Schema is another objec
     },
     userType:{
         type:String,
-        default:"CUSTOMER",
+        default:constants.userTypes.customer,
         enum:[constants.userTypes.customer,constants.userTypes.admin]//so we have this admin type user ,and this type of user will be created only through programatically and not through rest api calls.
     }
 })
