@@ -17,6 +17,19 @@ const contactSchema=new mongoose.Schema({//so this mongoose.Schema is another ob
     message:{
         type:String,
         required:true
+    },
+    createdAt :{
+        type : Date,
+        immutable :true,
+        default : () =>{ //method is needed to get new date everytime.
+                    return Date.now()
+        }
+    },
+    updatedAt :{
+         type : Date,
+         default : () =>{
+                  return Date.now()
+        }
     }
 
 });
