@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 const constants=require("../utils/constants");
 
-const bookinSchema=new mongoose.Schema({
+const bookingSchema=new mongoose.Schema({
     id:{//This is the unique booking id
         type:Number,
         required:true,

@@ -3,7 +3,8 @@ const mongoose=require('mongoose');
 const airLineSchema=new mongoose.Schema({
     name:{
        type: String,
-       required: true
+       required: true,
+       unique: true
     },
     website:{
         type: String//we currently don't want the website name to be mandatory
