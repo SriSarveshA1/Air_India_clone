@@ -1,6 +1,14 @@
 
 const airLineController=require("../controllers/airLine.controller");
 module.exports=(app) => {
+    
+
+    /*
+     Middlewares
+       1.So when ever someone wants to create a airline the name should be unique and not be used by any others after creation.(create a middleware for that)
+       2.Only logged in users should be allowed to access these routes.
+    */
+
 
     //This route will help us to create the airLine
     app.post("/flightBooker/api/v1/airLine/",airLineController.createAirline);
@@ -15,7 +23,7 @@ module.exports=(app) => {
     app.get("/flightBooker/api/v1/airLine/",airLineController.getAllAirLines);
 
     //This route will help us to update the airline details that are available
-    app.put("/flightBooker/api/v1/airLine/",airLineController.updateAirLine);
+    app.put("/flightBooker/api/v1/airLine/:id",airLineController.updateAirLine);
 
 
 }

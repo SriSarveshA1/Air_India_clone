@@ -2,7 +2,6 @@
 const AirLine=require("../models/airline.model");
 
 exports.createAirline=async (req,res)=>{
-
     try{
            const newAirLine={
             name:req.body.name,
@@ -61,11 +60,23 @@ exports.updateAirLine=async (req, res) =>{
             website:req.body.website
         };
 
-        const airLine = await AirLine.updateOne({_id:req.params.id},updatedData)
+        let airLine = await AirLine.updateOne({_id:req.params.id},updatedData)
+        airLine=await AirLine.findOne({_id:req.params.id});
         return res.status(200).send(airLine);
 
     }
     catch(err){
         return res.status(500).send({message:err.message});
+    }
+}
+
+exports.destroyAirLine=async (req, res) =>{
+
+    try{
+          const airLine=await AirLine.deleteOne({_id:req.params.id});
+          return res.status(200).send(airLine);
+    }
+    catch(err){
+          return res.status(500).send({message:err.message});
     }
 }

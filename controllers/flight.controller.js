@@ -9,6 +9,7 @@ exports.createFlight=async (req,res)=>{
             duration:req.body.duration,
             flightDate:req.body.flightDate,
             departureTime:req.body.departureTime,
+            arrivalTime:req.body.arrivalTime,
             flightNumber:req.body.flightNumber,
             price:req.body.price,
             airLineBelongs:req.body.airLineBelongs//has the id of the airline so we can refer to it
@@ -59,9 +60,7 @@ exports.getAllFlights=async (req, res) =>{
 exports.updateFlight=async (req, res) =>{
 
     try{
-         
         //we will be having an object that will be having the updated content.
-        
         const updatedData={
             departureAirport:req.body.departureAirport,
             arrivalAirport:req.body.arrivalAirport,
@@ -73,7 +72,8 @@ exports.updateFlight=async (req, res) =>{
             airLineBelongs:req.body.airLineBelongs
         };
 
-        const flight = await Flight.updateOne({flightNumber:req.params.flightNumber},data)
+        let flight = await Flight.updateOne({flightNumber:req.params.flightNumber},updatedData);
+        flight=await Flight.findOne({flightNumber:req.params.flightNumber});
         return res.status(200).send(flight);
 
     }
