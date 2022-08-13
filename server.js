@@ -22,7 +22,8 @@ db.once("open",()=>{//so when the mongodb connection is open
 })
 
 require("./routes/auth.routes")(app);
-
+require("./routes/airLine.routes")(app);
+require("./routes/flight.routes")(app);
 
 
 

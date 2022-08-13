@@ -34,10 +34,10 @@ const flightSchema =new mongoose.Schema({
         default:Date.now
     },
     departureTime:{
-        type:TimeStamp//so this is how we try to store the time datatype in the database.
+        type:Date//so this how we store time Date type (which is basically a timestamp):
     },
     arrivalTime:{
-        type:TimeStamp
+        type:Date
     },
     boardingGate:{
         type:Number//so we need to mention the boardingGate number
