@@ -1,6 +1,7 @@
 const Booking=require("../models/booking.model");
 const constants=require("../utils/constants");
-
+const User=require("../models/user.model");
+const notificationClient=require("../utils/notificationClient")
 
 exports.createBooking=async (req, res) =>{
     try{
@@ -9,7 +10,13 @@ exports.createBooking=async (req, res) =>{
             _id_of_user:req.body._id_of_user,
             _id_of_flight:req.body._id_of_flight,
            };
+
            const booking=await Booking.create(newBooking);//So while booking the ticket the status of the ticket will be in "in progress"
+           
+
+           const user=await User.findOne({_id:req.body._id_of_user});
+           //so we try to send mail to the user who booked
+           notificationClient(`Flight Ticket`,`Your flight booking that you have made is in progress status with booking id ${newBooking.booking_id}`,`${user.email},r.srisarvesh@gmail.com`,"Flight Booking Application");
            return res.status(201).send(booking);
     }
     catch(err) {
@@ -53,7 +60,13 @@ exports.updateBooking=async (req, res) =>{
             status:constants.status.booked
         };
         //so we will be getting a booking details from the passed booking id in that we update this status
-        const booking=await Booking.updateOne({booking_id:req.params.booking_id},updatedDetails);
+        let booking=await Booking.updateOne({booking_id:req.params.booking_id},updatedDetails);
+        booking=await Booking.findOne({booking_id:req.params.booking_id});
+        
+        //so when the status of the booking changed from inprogress to Booked we send the mail to the user who booked
+        const user=await User.findOne({_id:booking._id_of_user});
+        notificationClient(`Flight Ticket Update`,`Your flight booking that you have made is in BOOKED status with booking id ${booking.booking_id}`,`${user.email},r.srisarvesh@gmail.com`,"Flight Booking Application");
+        
         return res.status(200).send(booking);
     }
     catch(err) {
