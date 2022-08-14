@@ -7,13 +7,14 @@ module.exports=(app) => {
      Middlewares
        1.So when ever someone wants to create a airline the name should be unique and not be used by any others after creation.(create a middleware for that)
        2.Only logged in users should be allowed to access these routes.
+       3.Implementing the middleware that allowes only admin to access certain routes.
     */
 
 
-    //This route will help us to create the airLine
+    //This route will help us to create the airLine (Only ADMIN should be able to access this route)
     app.post("/flightBooker/api/v1/airLine/",airLineController.createAirline);
 
-    //This route will help us to delete the airline (the particular airLine that we want to delete)
+    //This route will help us to delete the airline (the particular airLine that we want to delete) (Only ADMIN should be able to access this route)
     app.delete("/flightBooker/api/v1/airLine/:id",airLineController.destroyAirLine);
 
     //This route will help us to get the particular airLine that we want to get 
@@ -22,7 +23,7 @@ module.exports=(app) => {
     //This route will help us to get the all the airlines details that are available
     app.get("/flightBooker/api/v1/airLine/",airLineController.getAllAirLines);
 
-    //This route will help us to update the airline details that are available
+    //This route will help us to update the airline details that are available (Only ADMIN should be able to access this route)
     app.put("/flightBooker/api/v1/airLine/:id",airLineController.updateAirLine);
 
 

@@ -46,16 +46,120 @@ exports.getFlight=async (req, res) =>{
     }
 }
 
+
+//So Either we get all the flight details 
+// Or
+// 1.We sort the flights array based on the price
+// 2.We sort the flights array based on the duration
 exports.getAllFlights=async (req, res) =>{
     try{
-        const allFlights = await Flight.find(); //so this will be returning all the flights
-        return res.status(200).send(allFlights);
+        let allFlights = await Flight.find(); 
+        //so we initially sort based on price or duration
+        if(req.query.price&&req.query.sort)
+        {
+            //so price should be having some value and sort=true should be there.
+            if(req.query.sort_asc)
+            {
+                //So if sort_asc is true we sort it in ascending order 
+                allFlights=allFlights.sort(function(a,b){
+                    return a.price-b.price;
+                })
+                return res.status(200).send(allFlights);
+            }
+            else{
+                //So if sort_des is true we sort it in descending order 
+                      if(req.query.sort_des)
+                     {
+                        //So if sort_asc is true we sort it in ascending order 
+                          allFlights=allFlights.sort(function(a,b){
+                               return b.price-a.price;
+                          })
+                         return res.status(200).send(allFlights);
+                     }
+                      else{
+                            //iF any query is not passed.
+                           return res.status(200).send(allFlights);
+                        }
+                 }
+            
+        }
+        else{
+            if(req.query.duration &&req.query.sort)
+            {
+                //so price should be having some value and sort=true should be there.
+                if(req.query.sort_asc)
+                {
+                    allFlights=allFlights.sort(function(a,b){
+                        return a.duration-b.duration;
+                    })
+                    return res.status(200).send(allFlights);
+                }
+                else{
+                    if(req.query.sort_desc)
+                    {
+                        allFlights=allFlights.sort(function(a,b){
+                            return b.duration-a.duration;
+                        })
+                        return res.status(200).send(allFlights);
+                        
+                    }
+                    else{
+                        //so this will be returning all the flights if any query is not properly passed
+                        return res.status(200).send(allFlights);
+                    }
+                }
+              
+            }
+            else{
+                  //So we can also get the details of the flights whose price is less than (certain value) or greater than(certain value)
+                     if(req.query.price&&req.query.lt)
+                    {
+                        //so here we try to retrive the details based  price lesser than certain value.
+                        allFlights=await Flight.find({price:{$lt:req.query.price}});
+                        return res.status(200).send(allFlights);
+                    }
+                    else{
+                        if(req.query.price&&req.query.gt)
+                        {
+                             //so here we try to retrive the details based  price greater than certain value.
+                        allFlights=await Flight.find({price:{$gt:req.query.price}});
+                        return res.status(200).send(allFlights);
+
+                        }
+                        else{
+                            if(req.query.duration&&req.query.lt)
+                            {
+                                allFlights=await Flight.find({duration:{$lt:req.query.duration}});
+                                return res.status(200).send(allFlights); 
+                            }
+                            else{
+                                if(req.query.duration&&req.query.gt)
+                                {
+                                    allFlights=await Flight.find({duration:{$gt:req.query.duration}});
+                                    return res.status(200).send(allFlights);
+                                }
+                                else{
+                                     //so this will be returning all the flights 
+                                      return res.status(200).send(allFlights);
+                                }
+                            }
+                        }
+                      
+                    }
+                
+            }
+          
+        }
+      
+       
     }
     catch(err)
     {
         return res.status(500).send({message:err.message});
     }
 }
+
+
 
 exports.updateFlight=async (req, res) =>{
 

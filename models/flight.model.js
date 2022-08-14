@@ -11,7 +11,6 @@ const flightSchema =new mongoose.Schema({
         type:Number,
         req:true
     },
-
     departureAirport:{
         type:String,
         required:true
