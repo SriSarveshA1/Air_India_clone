@@ -2,17 +2,17 @@ const mongoose=require('mongoose');
 const constants=require("../utils/constants");
 
 const bookingSchema=new mongoose.Schema({
-    id:{//This is the unique booking id
+    booking_id:{//This is the unique booking id
         type:Number,
         required:true,
         unique:true
     },
-    user:{//which user have made the booking
+    _id_of_user:{//which user have made the booking
         type:mongoose.Schema.Types.ObjectId,
         ref:"user",
         required:true
     },
-    flight:{//so we need to specify the flight details and from that we can get the airLines details from it.
+    _id_of_flight:{//so we need to specify the flight details and from that we can get the airLines details from it.
         type:mongoose.Schema.Types.ObjectId,
         ref:"flight",
         required:true

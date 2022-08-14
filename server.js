@@ -25,6 +25,7 @@ require("./routes/auth.routes")(app);
 require("./routes/airLine.routes")(app);
 require("./routes/flight.routes")(app);
 require("./routes/review.routes")(app);
+require("./routes/booking.routes")(app);
 
 
 
