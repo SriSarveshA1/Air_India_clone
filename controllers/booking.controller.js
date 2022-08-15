@@ -10,7 +10,10 @@ exports.createBooking=async (req, res) =>{
             _id_of_user:req.body._id_of_user,
             _id_of_flight:req.body._id_of_flight,
            };
-
+            if(req.body.status)
+            {
+                newBooking.status=req.body.status;
+            }
            const booking=await Booking.create(newBooking);//So while booking the ticket the status of the ticket will be in "in progress"
            
 

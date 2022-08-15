@@ -1,5 +1,6 @@
 
 const flightController=require("../controllers/flight.controller");
+const {authValidator,flightValidator}=require("../middlewares/index");
 module.exports=(app) => {
 
 
@@ -10,23 +11,23 @@ module.exports=(app) => {
     */
 
     //This route will help us to create the flight (Only ADMIN should be able to access this route)
-    app.post("/flightBooker/api/v1/flight/",flightController.createFlight);
+    app.post("/flightBooker/api/v1/flight/",[authValidator.tokenValidator,authValidator.isAdmin,flightValidator.validateFlightRequest],flightController.createFlight);
 
     //This route will help us to delete the flight (the particular flight that we want to delete) (Only ADMIN should be able to access this route)
-    app.delete("/flightBooker/api/v1/flight/:flightNumber",flightController.destroyFlight);
+    app.delete("/flightBooker/api/v1/flight/:flightNumber",[authValidator.tokenValidator,authValidator.isAdmin],flightController.destroyFlight);
 
     //This route will help us to get the particular flight that we want to get 
-    app.get("/flightBooker/api/v1/flight/:flightNumber",flightController.getFlight);
+    app.get("/flightBooker/api/v1/flight/:flightNumber",[authValidator.tokenValidator],flightController.getFlight);
 
     
     //This route will help us to get certain flights based on the filter criteria(if query param is passed) && This route will help us to get the all the flights details that are available(If no query param is passed)
     //And also We can get the flights based upon price on certain range
     //And also we can get the flights based upon duration on certain range
-    app.get("/flightBooker/api/v1/flight/",flightController.getAllFlights);
+    app.get("/flightBooker/api/v1/flight/",[authValidator.tokenValidator],flightController.getAllFlights);
 
 
     //This route will help us to update the flight details that are available (Only ADMIN should be able to access this route)
-    app.put("/flightBooker/api/v1/flight/:flightNumber",flightController.updateFlight);
+    app.put("/flightBooker/api/v1/flight/:flightNumber",[authValidator.tokenValidator,authValidator.isAdmin],flightController.updateFlight);
 
 
 }
