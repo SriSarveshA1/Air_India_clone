@@ -59,6 +59,11 @@ require("./routes/flight.routes")(app);
 require("./routes/review.routes")(app);
 require("./routes/booking.routes")(app);
 require("./routes/contact.routes")(app);
+//so when the api endpoint is not a valid one
+app.use((req,res)=>{
+    res.status(404).send({message:"Requested End point is not present"});
+})
+
 
 
 
