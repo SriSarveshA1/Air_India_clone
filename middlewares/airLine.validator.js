@@ -9,7 +9,7 @@ const validateAirLineRequest=async (req, res, next) => {
         {
             return res.status(400).send({message:"Name should be provided"});
         }
-        const airLine= await AirLine.find({name:req.body.name});
+        const airLine= await AirLine.findOne({name:req.body.name});
         if(airLine)
         {
             //if airline is already present we should not allow it

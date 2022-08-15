@@ -29,14 +29,14 @@ const tokenValidator=(req,res,next) => {
             return res.status(401).send({message:"Invalid Token"})
         }
         else{
-            res.userId=decoded.userId;//so we are retriving the public userId using which we have created the token 
+            req.userId=decoded.id;//so we are retriving the public userId using which we have created the token 
             next();
         }
     })
 
 }
 
-const isAdmin=async (req,res)=>{
+const isAdmin=async (req,res,next)=>{
       const user=await User.findOne({userId:req.userId});
 
       if(!user){
